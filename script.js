@@ -1,65 +1,94 @@
 (() => {
-  const experience = document.querySelector(".reading-experience");
-  const steps = [...document.querySelectorAll(".story-step")];
-  const leaves = [...document.querySelectorAll(".book-leaf")];
-  const progressBar = document.querySelector("#book-progress-bar");
-  const caption = document.querySelector("#book-caption-text");
-  if (!experience || !steps.length || !leaves.length) return;
+  const pages = [...document.querySelectorAll(".page")];
+  const prev = document.querySelector("#prev");
+  const next = document.querySelector("#next");
+  const count = document.querySelector("#page-count");
+  const dots = document.querySelector("#page-dots");
+  const stage = document.querySelector(".book-stage");
+  const restart = document.querySelector("#restart");
+  if (!pages.length || !prev || !next || !dots) return;
 
-  const captions = [
-    "A CAPA É SÓ O COMEÇO",
-    "A PRIMEIRA VIRADA",
-    "NOVAS IDEIAS APARECEM",
-    "CADA PÁGINA MUDA A PERSPECTIVA",
-    "QUASE NO FIM DO CAPÍTULO",
-    "A HISTÓRIA CONTINUA"
-  ];
-  let ticking = false;
-  let activeIndex = -1;
+  const labels = ["CAPA", "01 / 06", "02 / 06", "03 / 06", "04 / 06", "05 / 06", "CONTRACAPA"];
+  let current = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let wheelLock = false;
 
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-  const ease = (t) => t * t * (3 - 2 * t);
+  pages.forEach((page, i) => {
+    page.style.visibility = "visible";
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "page-dot";
+    dot.setAttribute("aria-label", i === 0 ? "Ir para a capa" : i === pages.length - 1 ? "Ir para a contracapa" : `Ir para a página ${i}`);
+    dot.addEventListener("click", () => goTo(i));
+    dots.appendChild(dot);
+  });
 
-  function updateOnScroll() {
-    const rect = experience.getBoundingClientRect();
-    const scrollable = Math.max(1, rect.height - window.innerHeight);
-    const progress = clamp(-rect.top / scrollable, 0, 1);
-    const pagePosition = progress * (steps.length - 1);
-    const index = clamp(Math.round(pagePosition), 0, steps.length - 1);
-
-    // Cada folha gira em 3D conforme a rolagem atravessa o seu intervalo.
-    // A rolagem para cima reverte naturalmente a animação.
-    leaves.forEach((leaf, i) => {
-      const turnProgress = clamp(progress * leaves.length - i * (leaves.length / (steps.length - 1)), 0, 1);
-      const angle = -180 * ease(turnProgress);
-      leaf.style.transform = `rotateY(${angle}deg)`;
-      const inMotion = turnProgress > 0 && turnProgress < 1;
-      const isTurned = turnProgress >= 1;
-      leaf.style.zIndex = String(inMotion ? 20 + leaves.length - i : isTurned ? i : leaves.length - i + 5);
+  function render() {
+    pages.forEach((page, i) => {
+      const turned = i < current;
+      page.style.transform = turned ? "rotateY(-180deg)" : "rotateY(0deg)";
+      page.style.zIndex = String(turned ? i + 1 : pages.length - i + 10);
+      page.classList.toggle("active", i === current);
+      page.setAttribute("aria-hidden", i === current ? "false" : "true");
     });
-
-    if (index !== activeIndex) {
-      activeIndex = index;
-      steps.forEach((step, i) => {
-        const isActive = i === index;
-        step.classList.toggle("is-active", isActive);
-        if (isActive) step.setAttribute("aria-current", "step");
-        else step.removeAttribute("aria-current");
-      });
-      caption.textContent = captions[index] || captions[captions.length - 1];
-    }
-    progressBar.style.width = `${progress * 100}%`;
-    ticking = false;
+    [...dots.children].forEach((dot, i) => {
+      if (i === current) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    count.textContent = labels[current] || `${current} / ${pages.length - 1}`;
+    prev.disabled = current === 0;
+    next.disabled = current === pages.length - 1;
+    prev.setAttribute("aria-label", "Voltar uma página");
+    next.setAttribute("aria-label", "Avançar uma página");
   }
 
-  function requestUpdate() {
-    if (!ticking) {
-      window.requestAnimationFrame(updateOnScroll);
-      ticking = true;
-    }
+  function goTo(index) {
+    current = Math.max(0, Math.min(pages.length - 1, index));
+    render();
   }
+  prev.addEventListener("click", () => goTo(current - 1));
+  next.addEventListener("click", () => goTo(current + 1));
+  restart?.addEventListener("click", (event) => {
+    event.preventDefault();
+    goTo(0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 
-  window.addEventListener("scroll", requestUpdate, { passive: true });
-  window.addEventListener("resize", requestUpdate);
-  updateOnScroll();
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight" || event.key === "PageDown") {
+      event.preventDefault();
+      goTo(current + 1);
+    } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+      event.preventDefault();
+      goTo(current - 1);
+    } else if (event.key === "Home") {
+      goTo(0);
+    } else if (event.key === "End") {
+      goTo(pages.length - 1);
+    }
+  });
+
+  stage.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+    touchStartY = event.changedTouches[0].clientY;
+  }, { passive: true });
+  stage.addEventListener("touchend", (event) => {
+    const dx = event.changedTouches[0].clientX - touchStartX;
+    const dy = event.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  stage.addEventListener("wheel", (event) => {
+    if (wheelLock || Math.abs(event.deltaY) < 18 && Math.abs(event.deltaX) < 18) return;
+    const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    if ((delta > 0 && current < pages.length - 1) || (delta < 0 && current > 0)) {
+      event.preventDefault();
+      goTo(current + (delta > 0 ? 1 : -1));
+      wheelLock = true;
+      window.setTimeout(() => { wheelLock = false; }, 850);
+    }
+  }, { passive: false });
+
+  render();
 })();
