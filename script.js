@@ -33,7 +33,9 @@
       const turnProgress = clamp(progress * leaves.length - i * (leaves.length / (steps.length - 1)), 0, 1);
       const angle = -180 * ease(turnProgress);
       leaf.style.transform = `rotateY(${angle}deg)`;
-      leaf.style.zIndex = String(leaves.length - i + (turnProgress > 0.5 ? 10 : 0));
+      const inMotion = turnProgress > 0 && turnProgress < 1;
+      const isTurned = turnProgress >= 1;
+      leaf.style.zIndex = String(inMotion ? 20 + leaves.length - i : isTurned ? i : leaves.length - i + 5);
     });
 
     if (index !== activeIndex) {
