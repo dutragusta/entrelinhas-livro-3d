@@ -1,100 +1,52 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f0e8">
-  <meta name="description" content="Entrelinhas: uma experiência de leitura interativa.">
-  <title>Entrelinhas — leia além do óbvio</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Entrelinhas: uma experiência editorial interativa.">
+<title>Entrelinhas — uma experiência interativa</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="Entrelinhas, início"><span class="brand-mark">e.</span><span>entrelinhas</span></a>
-    <span class="top-note">UMA EXPERIÊNCIA DE LEITURA</span>
-  </header>
-
-  <main id="inicio">
-    <section class="intro-panel">
-      <p class="eyebrow"><span></span> LEITURA • DESCOBERTA • IMAGINAÇÃO</p>
-      <h1>Uma história<br>nunca tem só<br><em>uma página.</em></h1>
-      <p class="intro-copy">Role a tela e descubra o que existe entre as linhas. Cada movimento revela uma nova página.</p>
-      <a class="scroll-cue" href="#livro"><span class="scroll-icon">↓</span> ROLE PARA COMEÇAR</a>
-    </section>
-
-    <section class="reading-experience" id="livro" aria-label="Livro interativo controlado pela rolagem">
-      <div class="story-steps">
-        <article class="story-step is-active" data-step="0">
-          <span class="step-index">01 / 06</span>
-          <p class="step-kicker">TUDO COMEÇA AQUI</p>
-          <h2>Abra espaço<br>para <em>novas ideias.</em></h2>
-          <p>Uma capa é só o começo. Continue rolando para abrir este livro e descobrir as histórias que ele guarda.</p>
-          <span class="step-prompt">CONTINUE DESCENDO <span>↓</span></span>
+<main class="experience" id="experience">
+  <header class="site-header"><a class="wordmark" href="#experience" aria-label="Entrelinhas, início">entrelinhas<span>®</span></a><span class="header-note">UMA EXPERIÊNCIA INTERATIVA</span></header>
+  <section class="book-stage" aria-label="Livro interativo">
+    <div class="stage-meta"><span id="page-count">CAPA</span><span class="meta-line"></span><span>ROLE OU USE AS SETAS</span></div>
+    <div class="book-wrap" id="book-wrap">
+      <div class="book-shadow"></div>
+      <div class="book" id="book" aria-live="polite">
+        <article class="page page-cover active" data-page="0" aria-label="Capa">
+          <div class="cover-art"><span class="scribble scribble-one">ideias</span><span class="scribble scribble-two">histórias</span><div class="cover-orbit"></div><div class="cover-sun"></div><div class="cover-figure figure-one"></div><div class="cover-figure figure-two"></div><div class="cover-title">entre<br><i>linhas.</i></div><div class="cover-subtitle">HISTÓRIAS PARA VER DE OUTRO JEITO</div></div>
         </article>
-        <article class="story-step" data-step="1">
-          <span class="step-index">02 / 06</span>
-          <p class="step-kicker">OLHE DE NOVO</p>
-          <h2>O sentido mora<br>nos <em>detalhes.</em></h2>
-          <p>Às vezes, uma pequena mudança de perspectiva revela algo que estava diante dos nossos olhos o tempo todo.</p>
-          <span class="step-prompt">A PRÓXIMA PÁGINA <span>↓</span></span>
+        <article class="page page-color page-blue" data-page="1" aria-label="Página 1">
+          <div class="page-art art-blue"><div class="art-word">OUÇA</div><div class="bubble bubble-a"></div><div class="bubble bubble-b"></div><div class="character char-blue"><i></i><b></b></div><div class="tiny-star">✳</div></div>
+          <div class="page-copy"><span class="page-number">01</span><p class="page-label">PRIMEIRO,</p><h2>escute<br>de verdade.</h2><p>Uma boa conversa começa quando existe espaço para ouvir, aprender e olhar de novo.</p><span class="page-mark">○</span></div>
         </article>
-        <article class="story-step" data-step="2">
-          <span class="step-index">03 / 06</span>
-          <p class="step-kicker">CONHEÇA OUTROS MUNDOS</p>
-          <h2>Histórias criam<br><em>conexões.</em></h2>
-          <p>Ler é visitar outras experiências, encontrar novas vozes e perceber o mundo por ângulos diferentes.</p>
-          <span class="step-prompt">SIGA A LEITURA <span>↓</span></span>
+        <article class="page page-color page-yellow" data-page="2" aria-label="Página 2">
+          <div class="page-art art-yellow"><div class="art-word">PERGUNTE</div><div class="sun-shape"></div><div class="character char-yellow"><i></i><b></b></div><div class="floating-note">?</div><div class="hill"></div></div>
+          <div class="page-copy"><span class="page-number">02</span><p class="page-label">MANTENHA A CURIOSIDADE</p><h2>perguntar<br>abre caminhos.</h2><p>Nem sempre temos todas as respostas. A curiosidade ajuda a encontrar novas perspectivas.</p><span class="page-mark">✳</span></div>
         </article>
-        <article class="story-step" data-step="3">
-          <span class="step-index">04 / 06</span>
-          <p class="step-kicker">VÁ ALÉM DO ÓBVIO</p>
-          <h2>Nem tudo cabe<br>na <em>superfície.</em></h2>
-          <p>As entrelinhas convidam a fazer perguntas, desafiar certezas e escutar antes de tirar conclusões.</p>
-          <span class="step-prompt">MAIS UMA PÁGINA <span>↓</span></span>
+        <article class="page page-color page-pink" data-page="3" aria-label="Página 3">
+          <div class="page-art art-pink"><div class="art-word">JUNTOS</div><div class="heart heart-a">♥</div><div class="heart heart-b">♥</div><div class="character char-pink"><i></i><b></b></div><div class="character char-pink second"><i></i><b></b></div><div class="ground"></div></div>
+          <div class="page-copy"><span class="page-number">03</span><p class="page-label">CADA PESSOA, UM MUNDO</p><h2>diferenças<br>nos aproximam.</h2><p>Conhecer outras experiências amplia a nossa própria história. Conexão começa com respeito.</p><span class="page-mark">○</span></div>
         </article>
-        <article class="story-step" data-step="4">
-          <span class="step-index">05 / 06</span>
-          <p class="step-kicker">O PRÓXIMO CAPÍTULO</p>
-          <h2>Uma ideia pode<br>mudar <em>tudo.</em></h2>
-          <p>O conhecimento ganha força quando sai das páginas e encontra espaço nas nossas escolhas do dia a dia.</p>
-          <span class="step-prompt">QUASE NO FIM <span>↓</span></span>
+        <article class="page page-color page-orange" data-page="4" aria-label="Página 4">
+          <div class="page-art art-orange"><div class="art-word">RECONHEÇA</div><div class="sun-shape"></div><div class="character char-orange"><i></i><b></b></div><div class="spark spark-a">✳</div><div class="spark spark-b">✳</div><div class="ground"></div></div>
+          <div class="page-copy"><span class="page-number">04</span><p class="page-label">OLHE ALÉM</p><h2>nem tudo<br>é visível.</h2><p>Perceber o que está por trás das primeiras impressões é um passo para entender melhor o mundo.</p><span class="page-mark">✳</span></div>
         </article>
-        <article class="story-step" data-step="5">
-          <span class="step-index">06 / 06</span>
-          <p class="step-kicker">A HISTÓRIA CONTINUA</p>
-          <h2>Leve algo<br><em>com você.</em></h2>
-          <p>Fechar um livro não encerra a conversa. O que você leu pode ser o começo de algo novo.</p>
-          <a class="restart-link" href="#inicio">VOLTAR AO COMEÇO ↑</a>
+        <article class="page page-color page-violet" data-page="5" aria-label="Página 5">
+          <div class="page-art art-violet"><div class="art-word">TRANSFORME</div><div class="big-loop"></div><div class="character char-violet"><i></i><b></b></div><div class="little-plant"></div></div>
+          <div class="page-copy"><span class="page-number">05</span><p class="page-label">IDEIAS EM MOVIMENTO</p><h2>pequenas ações<br>importam.</h2><p>O que aprendemos ganha força quando vira atitude e ajuda a construir mudanças reais.</p><span class="page-mark">○</span></div>
         </article>
+        <article class="page page-back" data-page="6" aria-label="Contracapa"><div class="back-art"><div class="back-circle"></div><div class="back-words">A história<br><i>continua.</i></div><p>O começo da próxima ideia está nas suas mãos.</p><span class="back-brand">ENTRELINHAS · 2026</span></div></article>
       </div>
-
-      <div class="book-column" aria-label="Animação do livro 3D">
-        <div class="book-sticky">
-          <div class="book-halo"></div>
-          <div class="book-shadow"></div>
-          <div class="book-scene">
-            <div class="book" id="book" aria-label="Livro 3D que vira as páginas conforme você rola a tela">
-              <div class="book-block"></div>
-              <div class="book-leaf leaf-5"><div class="leaf-face leaf-front back-cover"><span>ENTRELINHAS</span><b>FIM?</b><small>TODA LEITURA É UM COMEÇO.</small></div><div class="leaf-face leaf-back paper-page"><small>06</small><h3>A história<br>continua.</h3><p>O fim de uma página é só o começo da próxima ideia.</p></div></div>
-              <div class="book-leaf leaf-4"><div class="leaf-face leaf-front paper-page"><small>05</small><h3>Uma ideia<br>em movimento.</h3><p>Pequenas escolhas também podem abrir novos caminhos.</p><span class="page-decoration">✳</span></div><div class="leaf-face leaf-back paper-page"><small>04</small><h3>Olhe além<br>da superfície.</h3><p>Nem tudo que importa é percebido no primeiro olhar.</p><span class="page-decoration">◌</span></div></div>
-              <div class="book-leaf leaf-3"><div class="leaf-face leaf-front paper-page"><small>03</small><h3>Novas vozes,<br>novos mundos.</h3><p>Escutar experiências diferentes amplia a nossa própria história.</p><span class="page-decoration">✳</span></div><div class="leaf-face leaf-back paper-page"><small>02</small><h3>O sentido mora<br>nos detalhes.</h3><p>Às vezes, basta mudar o ponto de vista para enxergar diferente.</p><span class="page-decoration">◌</span></div></div>
-              <div class="book-leaf leaf-2"><div class="leaf-face leaf-front paper-page"><small>01</small><h3>Comece com<br>curiosidade.</h3><p>Uma boa pergunta pode transformar a maneira como vemos o mundo.</p><span class="page-decoration">✳</span></div><div class="leaf-face leaf-back paper-page"><small>PRÓLOGO</small><h3>Antes de tudo,<br>escute.</h3><p>Toda conversa importante começa com espaço para aprender.</p><span class="page-decoration">◌</span></div></div>
-              <div class="book-leaf leaf-1"><div class="leaf-face leaf-front book-cover"><span class="cover-star">✳</span><small>UMA EXPERIÊNCIA DE LEITURA</small><h2>entre<br><em>linhas.</em></h2><span class="cover-footer">HISTÓRIAS PARA VER DE OUTRO JEITO</span></div><div class="leaf-face leaf-back paper-page"><small>ABRA A PRIMEIRA PÁGINA</small><h3>O começo<br>é seu.</h3><p>Role a tela para seguir a história.</p><span class="page-decoration">✳</span></div></div>
-            </div>
-          </div>
-          <div class="book-caption"><span class="caption-dot"></span><span id="book-caption-text">A CAPA É SÓ O COMEÇO</span></div>
-          <div class="book-progress" aria-hidden="true"><span id="book-progress-bar"></span></div>
-          <p class="scroll-instruction">ROLE A TELA PARA FOLHEAR</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="end-panel">
-      <p class="eyebrow"><span></span> ENTRELINHAS © 2026</p>
-      <h2>Leia além<br>do <em>óbvio.</em></h2>
-      <a class="restart-button" href="#inicio">RELER A HISTÓRIA ↑</a>
-    </section>
-  </main>
-  <script src="script.js"></script>
+    </div>
+    <nav class="book-nav" aria-label="Navegação do livro"><button id="prev" type="button" disabled><span>←</span> Página anterior</button><div class="page-dots" id="page-dots" aria-label="Páginas"></div><button id="next" type="button">Próxima página <span>→</span></button></nav>
+    <p class="gesture-note">DESLIZE · ROLE · DESCUBRA</p>
+  </section>
+  <footer class="site-footer"><span>ENTRELINHAS © 2026</span><span>UMA PÁGINA DE CADA VEZ</span><a href="#experience" id="restart">VOLTAR AO COMEÇO ↑</a></footer>
+</main>
+<script src="script.js"></script>
 </body>
 </html>
